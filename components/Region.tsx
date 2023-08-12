@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { MdKeyboardArrowUp, MdKeyboardArrowDown } from "react-icons/md";
 import Country from "./Country";
 
+// data
 const data = [
   {
     id: "NA",
@@ -110,7 +111,8 @@ const Region = () => {
         ))}
       </div>
 
-      {selectedRegion && regions.length > 0 && (
+      {/* show country if there is selectedRegion  */}
+      {selectedRegion && (
         <Country
           key={regions.id}
           regions={regions}

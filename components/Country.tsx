@@ -2,12 +2,6 @@ import React, { useState } from "react";
 import Brand from "./Brand";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 
-type props = {
-  id: string;
-  name: string;
-  brand: string;
-};
-
 const Country = ({ regions, selectedRegion }: any) => {
   const [brands, setBrands] = useState<any>([]);
   const [selectedBrand, setSelectedBrand] = useState(null);
@@ -53,9 +47,7 @@ const Country = ({ regions, selectedRegion }: any) => {
           </div>
         ))}
       </div>
-      {selectedRegion && selectedBrand && brands.length > 0 && (
-        <Brand brands={brands} />
-      )}
+      {selectedBrand && <Brand brands={brands} />}{" "}
     </div>
   );
 };
