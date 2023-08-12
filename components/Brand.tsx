@@ -1,7 +1,6 @@
 import React from "react";
 
 const Brand = ({ brands }: any) => {
-  console.log(brands);
   return (
     <div className="bg-gray-100 p-10 rounded-2xl flex flex-wrap gap-4 md:gap-10 items-center ">
       {brands.map((b: any, index: any) => (

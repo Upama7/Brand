@@ -8,8 +8,8 @@ import { RiCloseLine } from "react-icons/ri";
 const category = [
   { n: "Bed Supplies" },
   { n: "Home and Kitchen" },
-  { n: "Upama" },
-  { n: "Mahendra" },
+  { n: "Computer" },
+  { n: "Laptop" },
   { n: "Web Development" },
 ];
 

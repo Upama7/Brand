@@ -1,9 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-
-import Country from "./Country";
 import { MdKeyboardArrowUp, MdKeyboardArrowDown } from "react-icons/md";
+import Country from "./Country";
 
 const data = [
   {
@@ -18,32 +17,62 @@ const data = [
   {
     id: "EU",
     name: "Europe ",
-    region: [{ id: "N", name: "Nepal", brand: ["iHREB"] }],
+    region: [
+      { id: "G", name: "Germay", brand: ["iHREB", "Ebay"] },
+      { id: "F", name: "France", brand: ["Chewy"] },
+      { id: "I", name: "Italy", brand: ["Kroger"] },
+    ],
   },
   {
     id: "GC",
     name: "GCC",
-    region: [{ id: "I", name: "India", brand: ["Kroger"] }],
+    region: [
+      { id: "S", name: "Saudi Arabia", brand: ["Kroger"] },
+      {
+        id: "K",
+        name: "Kuwait",
+        brand: ["Grailed", "Chewy", "Bestbuy"],
+      },
+    ],
   },
   {
     id: "SE",
     name: "South East Asia",
-    region: [{ id: "C", name: "China", brand: ["Grailed"] }],
+    region: [
+      { id: "I", name: "Indonesia", brand: ["Grailed"] },
+      { id: "P", name: "Philipphines", brand: ["Apple", "Dell", "Lenovo"] },
+    ],
   },
   {
     id: "UK",
     name: "UK",
-    region: [{ id: "L", name: "London", brand: ["Chewy", "Bestbuy"] }],
+    region: [
+      { id: "E", name: "England", brand: ["Chewy", "Bestbuy"] },
+      {
+        id: "S",
+        name: "Scotland",
+        brand: ["Huawei"],
+      },
+    ],
   },
 ];
 
 const Region = () => {
-  const [show, setShow] = useState(false);
-
+  const [selectedRegion, setSelectedRegion] = useState(null);
   const [regions, setRegions] = useState<any>([]);
 
+  // toggle up and down arrow
+  const handleToggleRegion = (id: any) => {
+    if (selectedRegion === id) {
+      setSelectedRegion(null);
+    } else {
+      setSelectedRegion(id);
+    }
+  };
+
+  // for region display
   const handleChangeRegion = (id: string) => {
-    data.forEach((element) => {
+    data.map((element) => {
       if (element.id === id) {
         setRegions(element.region);
       }
@@ -56,28 +85,37 @@ const Region = () => {
         Select Regions & Marketplace you live in:
       </h1>
       <h2 className="text-[14px]">Select Regions:</h2>
-      <div className=" flex flex-wrap  justify-between gap-5 py-6">
-        {data.map((r, index) => (
-          <div key={index} className="flex items-center gap-6">
+      <div className="flex flex-wrap justify-between gap-5 py-6">
+        {data.map((e) => (
+          <div key={e.id} className="flex items-center gap-6">
             <input
               type="checkbox"
-              id="region"
-              name="region"
-              onClick={() => {
-                handleChangeRegion(r.id);
-                setShow(!show);
+              id={`e-${e.id}`}
+              checked={selectedRegion === e.id}
+              onChange={() => {
+                handleChangeRegion(e.id);
+                handleToggleRegion(e.id);
               }}
             />
-            <div className="flex items-center">
-              <label htmlFor="region">{r.name}</label>
-              {show ? <MdKeyboardArrowUp /> : <MdKeyboardArrowDown />}
-            </div>
+
+            <label htmlFor={`e-${e.id}`} className="flex items-center">
+              {e.name}
+              {selectedRegion === e.id ? (
+                <MdKeyboardArrowUp />
+              ) : (
+                <MdKeyboardArrowDown />
+              )}
+            </label>
           </div>
         ))}
       </div>
 
-      {show && regions.length > 0 && (
-        <Country Country={regions} regions={regions} />
+      {selectedRegion && regions.length > 0 && (
+        <Country
+          key={regions.id}
+          regions={regions}
+          selectedRegion={selectedRegion}
+        />
       )}
     </div>
   );

@@ -1,41 +1,61 @@
 import React, { useState } from "react";
 import Brand from "./Brand";
-import { MdKeyboardArrowUp, MdKeyboardArrowDown } from "react-icons/md";
+import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 
-const Country = ({
-  Country,
+type props = {
+  id: string;
+  name: string;
+  brand: string;
+};
 
-  regions,
-}: any) => {
+const Country = ({ regions, selectedRegion }: any) => {
   const [brands, setBrands] = useState<any>([]);
-  const [showRegion, setShowRegion] = useState(false);
+  const [selectedBrand, setSelectedBrand] = useState(null);
+
+  const handleToggleRegion = (id: any) => {
+    if (selectedBrand === id) {
+      setSelectedBrand(null);
+    } else {
+      setSelectedBrand(id);
+    }
+  };
 
   const handleChangeBrand = (id: any) => {
-    for (let region of regions) {
-      if (region.id == id) {
-        setBrands(region.brand);
+    regions.map((element: any) => {
+      if (element.id === id) {
+        setBrands(element.brand);
       }
-    }
+    });
   };
   return (
     <div className="flex flex-col flex-wrap gap-4 md:gap-10">
       <div className="bg-gray-100 p-10 rounded-2xl flex flex-wrap  gap-4 md:gap-10 items-center ">
-        {Country.map((c: any, index: any) => (
-          <div key={index} className="flex items-center gap-2">
+        {regions.map((r: any) => (
+          <div key={r.id} className="flex items-center gap-6">
             <input
               type="checkbox"
-              id="brand"
-              name="brand"
-              onClick={() => {
-                handleChangeBrand(c.id);
-                setShowRegion(!showRegion);
+              id={`${r.id}`}
+              checked={selectedBrand === r.id}
+              onChange={() => {
+                handleChangeBrand(r.id);
+                handleToggleRegion(r.id);
               }}
             />
-            <label htmlFor="scales">{c.name}</label>
+
+            <label htmlFor={`${r.id}`} className="flex items-center">
+              {r.name}
+              {selectedBrand === r.id ? (
+                <MdKeyboardArrowUp />
+              ) : (
+                <MdKeyboardArrowDown />
+              )}
+            </label>
           </div>
         ))}
       </div>
-      {showRegion && brands.length > 0 && <Brand brands={brands} />}
+      {selectedRegion && selectedBrand && brands.length > 0 && (
+        <Brand brands={brands} />
+      )}
     </div>
   );
 };
