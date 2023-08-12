@@ -6,6 +6,7 @@ const Country = ({ regions, selectedRegion }: any) => {
   const [brands, setBrands] = useState<any>([]);
   const [selectedBrand, setSelectedBrand] = useState(null);
 
+  // toggle for region
   const handleToggleRegion = (id: any) => {
     if (selectedBrand === id) {
       setSelectedBrand(null);
@@ -14,6 +15,7 @@ const Country = ({ regions, selectedRegion }: any) => {
     }
   };
 
+  // set brand when click on region
   const handleChangeBrand = (id: any) => {
     regions.map((element: any) => {
       if (element.id === id) {
@@ -47,7 +49,8 @@ const Country = ({ regions, selectedRegion }: any) => {
           </div>
         ))}
       </div>
-      {selectedBrand && <Brand brands={brands} />}{" "}
+      {/* show brand of selected region */}
+      {selectedBrand && <Brand brands={brands} />}
     </div>
   );
 };
